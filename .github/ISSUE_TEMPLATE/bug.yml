@@ -1,0 +1,31 @@
+name: Report a bug
+description: Report reproducible behaviour in the site, data, or pipeline
+title: "Bug: "
+labels: ["type: bug", "status: needs-triage"]
+body:
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser or environment
+  - type: textarea
+    id: context
+    attributes:
+      label: Screenshots, record IDs, or other context

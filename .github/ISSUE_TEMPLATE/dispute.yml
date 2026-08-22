@@ -1,0 +1,37 @@
+name: Challenge a decision
+description: Contest one record, source, relationship, status, or review decision
+title: "Dispute: "
+labels: ["type: dispute", "status: contested"]
+body:
+  - type: input
+    id: target
+    attributes:
+      label: Decision or record
+      description: Link to the record, issue, pull request, or commit.
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: What is contested?
+      description: Identify one specific claim or decision.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and reasoning
+      description: Link sources and explain how they bear on the contested claim.
+    validations:
+      required: true
+  - type: textarea
+    id: resolution
+    attributes:
+      label: Proposed resolution
+      description: Accept, reject, redirect, rescope, weaken, or mark contested.
+    validations:
+      required: true
+  - type: textarea
+    id: perspective
+    attributes:
+      label: Relevant perspective or conflict of interest

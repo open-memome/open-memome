@@ -1,0 +1,12 @@
+[
+  {"name":"type: candidate","color":"7b68ee","description":"Proposed meme record"},
+  {"name":"type: evidence","color":"2f81f7","description":"Source or evidence change"},
+  {"name":"type: dispute","color":"d1242f","description":"Contested record or decision"},
+  {"name":"type: bug","color":"b60205","description":"Reproducible software or data defect"},
+  {"name":"status: needs-triage","color":"d4c5f9","description":"Awaiting initial scope review"},
+  {"name":"status: needs-sources","color":"fbca04","description":"More or better evidence required"},
+  {"name":"status: in-review","color":"0e8a16","description":"Under active review"},
+  {"name":"status: accepted","color":"1d76db","description":"Accepted for implementation or merge"},
+  {"name":"status: contested","color":"e99695","description":"Substantive disagreement remains"},
+  {"name":"status: redirected","color":"cfd3d7","description":"Duplicate or represented elsewhere"}
+]

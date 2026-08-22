@@ -1,0 +1,44 @@
+name: Add or correct evidence
+description: Improve one record, occurrence, metric, or relationship
+title: "Evidence: "
+labels: ["type: evidence", "status: needs-triage"]
+body:
+  - type: input
+    id: record
+    attributes:
+      label: Record
+      description: Record name or ID.
+    validations:
+      required: true
+  - type: dropdown
+    id: claim_type
+    attributes:
+      label: Claim affected
+      options: [Occurrence, Scope, Variant, Origin, Influence, Opposition, Reinforcement, Reach, Velocity, Persistence, Other]
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source URL
+      description: Link to the primary evidence, archive, dataset, or research.
+    validations:
+      required: true
+  - type: textarea
+    id: support
+    attributes:
+      label: What does the source support?
+      description: State the exact claim, date, geography, channel, and limitations where relevant.
+    validations:
+      required: true
+  - type: dropdown
+    id: action
+    attributes:
+      label: Requested change
+      options: [Add evidence, Correct evidence, Weaken claim, Remove claim, Mark contested]
+    validations:
+      required: true
+  - type: textarea
+    id: conflict
+    attributes:
+      label: Conflict of interest or uncertainty

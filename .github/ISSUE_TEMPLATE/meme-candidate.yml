@@ -1,0 +1,96 @@
+name: Propose a meme
+description: Add one culturally transmitted unit for review
+title: "Candidate: "
+labels: ["type: candidate", "status: needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose one copyable unit. Search existing issues and records first. Broad topics, people, products, organizations, places, and isolated events usually do not qualify.
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: The shortest clear name for the proposed meme.
+      placeholder: Scientific method
+    validations:
+      required: true
+  - type: textarea
+    id: unit
+    attributes:
+      label: What gets copied?
+      description: State the learned belief, narrative, rule, practice, frame, symbol, technique, style, slogan, or joke in one neutral sentence.
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options: [Belief, Narrative, Norm, Practice, Frame, Symbol, Technique, Style, Slogan, Joke, Unsure]
+    validations:
+      required: true
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Primary domain
+      options:
+        - Belief & cosmology
+        - Governance & power
+        - Economy & exchange
+        - Identity & belonging
+        - Ethics & social order
+        - Knowledge & truth
+        - Technology & progress
+        - Health & body
+        - Family & kinship
+        - Nature & ecology
+        - Culture & aesthetics
+        - Digital culture
+    validations:
+      required: true
+  - type: textarea
+    id: occurrence_one
+    attributes:
+      label: First dated occurrence
+      description: Link to a stable source and explain what it shows, including date and community or place.
+    validations:
+      required: true
+  - type: textarea
+    id: occurrence_two
+    attributes:
+      label: Second independent occurrence
+      description: Use a different carrier, community, or independent source. Explain what it shows.
+    validations:
+      required: true
+  - type: textarea
+    id: variants
+    attributes:
+      label: Variants or aliases
+      description: List recognizable variants, related names, and possible duplicates.
+  - type: checkboxes
+    id: gates
+    attributes:
+      label: Meme test
+      options:
+        - label: It is transmitted or learned from others.
+          required: true
+        - label: The copyable unit is recognizable and bounded.
+          required: true
+        - label: It recurs in independent occurrences.
+          required: true
+        - label: It can vary while remaining related.
+          required: true
+        - label: Dated evidence makes it traceable.
+          required: true
+  - type: textarea
+    id: uncertainty
+    attributes:
+      label: Uncertainty or contrary evidence
+      description: State the weakest part of the proposal and any relevant disagreement.
+  - type: checkboxes
+    id: conduct
+    attributes:
+      label: Contributor declaration
+      options:
+        - label: I searched for duplicates, represented sources accurately, and disclosed any material conflict of interest.
+          required: true
