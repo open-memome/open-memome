@@ -58,11 +58,19 @@ function boundsFor(items: { x: number; y: number }[]) {
 }
 
 const MAX_REACH = Math.max(...mapPoints.map((point) => point.reach ?? 0), 1);
+const MIN_POINT_RADIUS = 0.75;
+const MAX_POINT_RADIUS = 18;
 
-function pointRadius(reach: number | null) {
-  if (reach === null) return 1.4;
-  const normalized = Math.log1p(reach) / Math.log1p(MAX_REACH);
-  return 1.4 + Math.pow(normalized, 2.2) * 48.6;
+function pointRadius(reach: number | null, scale: number) {
+  let footprint = 1.4;
+  if (reach !== null) {
+    const normalized = Math.log1p(reach) / Math.log1p(MAX_REACH);
+    footprint += Math.pow(normalized, 2.2) * 48.6;
+  }
+  return Math.min(
+    MAX_POINT_RADIUS,
+    Math.max(MIN_POINT_RADIUS, footprint * scale),
+  );
 }
 
 export default function MemomeCanvas({
@@ -271,10 +279,13 @@ export default function MemomeCanvas({
         reach = record?.reach ?? p.reach;
       const matched = filtered && highlighted,
         radius = selected
-          ? Math.max(7, pointRadius(reach) + 2)
+          ? Math.max(7, pointRadius(reach, view.scale) + 2)
           : matched
-            ? Math.max(searchActive ? 7 : 4.5, pointRadius(reach))
-            : pointRadius(reach);
+            ? Math.max(
+                searchActive ? 7 : 4.5,
+                pointRadius(reach, view.scale),
+              )
+            : pointRadius(reach, view.scale);
       const color = colors[p.domain] || "#78818c",
         hasSource = Boolean(record?.sourceUrl),
         documented = record?.state === "Documented",
@@ -377,7 +388,9 @@ export default function MemomeCanvas({
       const width = ctx.measureText(record.title).width,
         height = 11 / view.scale;
       const x =
-          point.x + (pointRadius(record.reach ?? point.reach) + 4) / view.scale,
+          point.x +
+          (pointRadius(record.reach ?? point.reach, view.scale) + 4) /
+            view.scale,
         y = point.y - height / 2;
       if (
         occupied.some(
@@ -442,7 +455,10 @@ export default function MemomeCanvas({
       if (!visibleIds.has(p.id)) continue;
       const record = recordById.get(p.id),
         hitRadius =
-          Math.max(6, pointRadius(record?.reach ?? p.reach) + 2) / view.scale,
+          Math.max(
+            6,
+            pointRadius(record?.reach ?? p.reach, view.scale) + 2,
+          ) / view.scale,
         distance = (p.x - wx) ** 2 + (p.y - wy) ** 2;
       if (distance <= hitRadius ** 2) return { id: p.id, sx, sy };
     }
