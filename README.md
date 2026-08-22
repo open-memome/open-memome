@@ -4,13 +4,13 @@
 
 [Explore the map](https://open-memome.cocoa-toast-3272.chatgpt.site) · [Propose a meme](https://github.com/open-memome/open-memome/issues/new?template=meme-candidate.yml) · [Review the queue](https://github.com/open-memome/open-memome/issues) · [Read the method](METHODOLOGY.md)
 
+![Open Memome semantic map](public/og.png)
+
 ## What is a memome?
 
-Open Memome uses **memome** to mean the set of memes present in a population, together with their variants and relationships.
+A **memome** is the set of memes present in a population, together with their variants and relationships.
 
 A meme is a learned cultural unit that recurs in recognizable form: a belief, narrative, rule, practice, frame, symbol, technique, style, slogan, or joke. A memome is the larger system those units form.
-
-The term has appeared in memetics and cultural-evolution research, but it has no single settled scientific definition. This project therefore states its working definition and tests every record against public rules.
 
 ## Why this exists
 
@@ -18,9 +18,9 @@ Ideas spread, mutate, reinforce one another, and sometimes trap people inside in
 
 The immediate spark came from [Alexander Wissner-Gross's challenge in a Moonshots episode](https://youtu.be/TaJH0D2FKN8?t=3342): build a Human Memome Project that maps memes and mind viruses, then studies how quickly they propagate. Open Memome is an independent, open-source attempt to make that idea testable and useful.
 
-## What belongs on the map?
+## Inclusion criteria
 
-A candidate should pass five checks:
+Open Memome evaluates each proposed meme against five checks:
 
 1. **Transmitted:** learned from another person, group, artifact, or system.
 2. **Recognizable:** the copied content can be stated in one neutral sentence.
@@ -41,11 +41,13 @@ Choose one small, reviewable task:
 - [Challenge a decision](https://github.com/open-memome/open-memome/issues/new?template=dispute.yml)
 - [Fix the code or data](CONTRIBUTING.md)
 
-New accepted contributions keep their sources, discussion, reviewer rationale, and version history. Discovery leads remain outside the default map until they pass review.
+New accepted contributions keep their sources, discussion, reviewer rationale, and version history. Discovery leads never count as scoped records and remain visibly unassessed until they pass review.
+
+GitHub is the public contribution ledger for the alpha. A later validation layer will borrow [Community Notes' cross-perspective principle](https://communitynotes.x.com/guide/en/about/challenges), rather than treating raw vote totals as consensus, once enough independent review history exists.
 
 ## Current status
 
-Open Memome is an early public alpha. The semantic canvas and a small documented corpus work today. Here, `documented` means that at least two dated sources are attached; it does not mean that community review is complete. Thousands of catalogue matches remain unassessed in a separate discovery backlog. Counts describe coverage work, not verified memes.
+Open Memome is an early public alpha. The semantic canvas and a small documented corpus work today. Here, `documented` means that at least two dated sources are attached; it does not mean that community review is complete. The default view also includes a balanced sample of high-signal discovery leads, shown as hollow circles. Thousands of other catalogue matches remain in the review backlog. Counts describe coverage work, not verified memes.
 
 Bubble size currently uses Wikimedia sitelinks as a reproducible long-run footprint proxy. It does not measure present-day virality. Records without a comparable reach source remain explicitly unscored.
 

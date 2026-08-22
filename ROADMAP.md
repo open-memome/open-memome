@@ -12,7 +12,7 @@
 
 - Record-level pages with stable URLs and decision history
 - Comparable reach and attention observations with dates and sources
-- Reviewer reputation based on review quality and cross-perspective agreement
+- Community Notes-style cross-perspective validation based on review history, not raw vote totals
 - Relationship overlays for variants, influence, opposition, and reinforcement
 - Versioned data releases and documented coverage audits
 

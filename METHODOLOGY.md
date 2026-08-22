@@ -58,7 +58,7 @@ Claims about origin, influence, opposition, or effects require their own evidenc
 - **Rejected:** outside scope or unsupported
 - **Redirected:** duplicate or better represented as another record type
 
-Discovery leads are excluded from the default public map.
+Discovery leads never count as scoped records. The default expanded view combines scoped records with a balanced review sample: up to 55 high-reach discovery leads per domain, plus additional internet-meme records above the published reach threshold. Noise filters remove obvious people, companies, places, media titles, medical conditions, and biological entities. These records remain hollow and explicitly unassessed until they pass review.
 
 ## Reach and virality
 

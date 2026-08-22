@@ -29,6 +29,9 @@ test("renders the public project and contribution path", async () => {
   const html = await response.text();
   assert.match(html, /The open map of humanity/);
   assert.match(html, /A memome is the set of memes present in a population/);
+  assert.match(html, /visible by default/);
+  assert.match(html, /How Open Memome evaluates a meme/);
   assert.match(html, /github\.com\/open-memome\/open-memome\/issues\/new/);
   assert.doesNotMatch(html, /Proposal downloaded|example reviews|Download proposal/);
+  assert.doesNotMatch(html, /What belongs on the map/);
 });

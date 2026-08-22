@@ -21,6 +21,7 @@ type RecordState =
   | "Contested";
 type EvidenceFilter =
   | "All layers"
+  | "Expanded map"
   | "Candidate layer"
   | "Discovery leads"
   | "Starting source"
@@ -101,7 +102,11 @@ const importedRecords: IndexRecord[] = candidateRecords
       reach: r.reach,
       level:
         documentation?.level ||
-        (statusOverrides[r.id] ? "Broad subject" : "Candidate unit"),
+        (statusOverrides[r.id]
+          ? "Broad subject"
+          : r.status === "Discovery lead"
+            ? "Discovery lead"
+            : "Candidate unit"),
       documentation,
     };
   });
@@ -110,13 +115,54 @@ const records = [...handRecords, ...importedRecords];
 const scopedRecords = records.filter(
   (record) => record.state !== "Discovery lead",
 );
-const coverage = domains.map((name) => ({
+const discoveryNoise =
+  /\b(company|organization|business|brand|person|politician|actor|singer|athlete|city|town|village|country|region|province|district|island|river|mountain|film|album|song|novel|book|television series|video game|fictional character|disease|syndrome|disorder|medical condition|drug|gene|protein|cell line|species|aircraft|satellite|locomotive|rolling stock)\b/i;
+const balancedDiscoveryIds = new Set(
+  domains.flatMap((domainName) =>
+    importedRecords
+      .filter(
+        (record) =>
+          record.domain === domainName &&
+          record.state === "Discovery lead" &&
+          (record.reach ?? 0) >= 8 &&
+          !discoveryNoise.test(`${record.title} ${record.summary}`),
+      )
+      .sort(
+        (a, b) =>
+          (b.reach ?? 0) - (a.reach ?? 0) ||
+          a.title.localeCompare(b.title),
+      )
+      .slice(0, 55)
+      .map((record) => record.id),
+  ),
+);
+for (const record of importedRecords) {
+  if (
+    record.state === "Discovery lead" &&
+    record.collection === "Internet memes" &&
+    (record.reach ?? 0) >= 5 &&
+    !discoveryNoise.test(`${record.title} ${record.summary}`)
+  ) {
+    balancedDiscoveryIds.add(record.id);
+  }
+}
+const expandedRecordIds = new Set([
+  ...scopedRecords.map((record) => record.id),
+  ...balancedDiscoveryIds,
+]);
+const expandedRecords = records.filter((record) =>
+  expandedRecordIds.has(record.id),
+);
+const scopedCoverage = domains.map((name) => ({
   name,
   count: scopedRecords.filter((record) => record.domain === name).length,
 }));
-const coverageMax = Math.max(...coverage.map((item) => item.count));
+const scopedCoverageMax = Math.max(
+  ...scopedCoverage.map((item) => item.count),
+);
 
 function evidenceMatches(record: IndexRecord, evidence: EvidenceFilter) {
+  if (evidence === "Expanded map") return expandedRecordIds.has(record.id);
   if (evidence === "Candidate layer") return record.state !== "Discovery lead";
   if (evidence === "Discovery leads") return record.state === "Discovery lead";
   if (evidence === "Starting source") return Boolean(record.sourceUrl);
@@ -188,7 +234,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [domain, setDomain] = useState("All domains");
   const [kind, setKind] = useState("All types");
-  const [evidence, setEvidence] = useState<EvidenceFilter>("Candidate layer");
+  const [evidence, setEvidence] = useState<EvidenceFilter>("Expanded map");
   const [limit, setLimit] = useState(60);
 
   const current = records.find((r) => r.id === active) || records[0];
@@ -211,6 +257,16 @@ export default function Home() {
           .map((r) => r.id),
       ),
     [evidence],
+  );
+  const visibleCoverage = useMemo(
+    () =>
+      domains.map((name) => ({
+        name,
+        count: records.filter(
+          (record) => record.domain === name && visibleIds.has(record.id),
+        ).length,
+      })),
+    [visibleIds],
   );
 
   function selectFirst(
@@ -298,8 +354,8 @@ export default function Home() {
           <section className="pitch">
             <div className="pitch-main">
               <p className="eyebrow">
-                {scopedRecords.length.toLocaleString()} scoped records · 12
-                domains · open review
+                {expandedRecords.length.toLocaleString()} visible by default ·{" "}
+                {scopedRecords.length.toLocaleString()} scoped · 12 domains
               </p>
               <h1>The open map of humanity&apos;s memes.</h1>
               <p>
@@ -341,13 +397,14 @@ export default function Home() {
               </p>
             </div>
             <div className="how">
-              <p>WHY USE A MEME TEST?</p>
-              <h2>What belongs on the map?</h2>
+              <p>WHY USE AN INCLUSION TEST?</p>
+              <h2>How Open Memome evaluates a meme</h2>
               <div className="how-intro">
-                “Meme” has competing definitions. Five public checks make
-                decisions consistent and contestable.{" "}
+                A shared test lets contributors evaluate very different
+                cultural units consistently. Every decision can be checked and
+                challenged.{" "}
                 <button onClick={() => changeView("evidence")}>
-                  Sources and limits
+                  Method and sources
                 </button>
               </div>
               <p className="test-label">THE FIVE CHECKS</p>
@@ -404,7 +461,7 @@ export default function Home() {
           <section className="map-workspace" id="memome-map">
             <aside className="domain-list">
               <p>12 DOMAINS</p>
-              {coverage.map((item) => (
+              {visibleCoverage.map((item) => (
                 <button
                   key={item.name}
                   className={domain === item.name ? "selected" : ""}
@@ -637,7 +694,7 @@ export default function Home() {
               review rules. The basis combines Dawkins&apos;s replicator
               concept, research on cultural traits as identifiable units, and
               Shifman&apos;s treatment of memes as related groups of variants.
-              The rules are provisional and can change with evidence.
+              The rules are versioned and revised when evidence warrants it.
             </p>
             <div>
               <a
@@ -820,8 +877,8 @@ export default function Home() {
             <div>
               <State value="Discovery lead" />
               <p>
-                Catalogue match only. Hidden from the default map until
-                assessed.
+                Catalogue match only. High-signal leads may appear as hollow
+                circles for review; the rest stay in the backlog.
               </p>
             </div>
             <div>
@@ -853,13 +910,13 @@ export default function Home() {
               </p>
             </div>
             <div>
-              {coverage.map((item) => (
+              {scopedCoverage.map((item) => (
                 <div className="coverage-row" key={item.name}>
                   <span>{item.name}</span>
                   <i>
                     <b
                       style={{
-                        width: `${Math.max(3, (item.count / coverageMax) * 100)}%`,
+                        width: `${Math.max(3, (item.count / scopedCoverageMax) * 100)}%`,
                       }}
                     />
                   </i>
@@ -897,7 +954,8 @@ export default function Home() {
       <footer>
         <span>OPEN MEMOME · PUBLIC ALPHA</span>
         <p>
-          {scopedRecords.length.toLocaleString()} scoped records · 12 domains
+          {records.length.toLocaleString()} indexed ·{" "}
+          {scopedRecords.length.toLocaleString()} scoped · 12 domains
         </p>
         <a href={candidateIssue} target="_blank" rel="noreferrer">
           Propose a meme
@@ -981,8 +1039,11 @@ function FilterBar({
           onChange={(e) => setEvidence(e.target.value as EvidenceFilter)}
           aria-label="Filter by evidence"
         >
+          <option value="Expanded map">
+            Expanded map ({expandedRecords.length.toLocaleString()})
+          </option>
           <option value="Candidate layer">
-            Scoped map ({candidates.toLocaleString()})
+            Scoped records ({candidates.toLocaleString()})
           </option>
           <option value="Documented only">
             Documented only ({documented})

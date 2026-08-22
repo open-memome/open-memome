@@ -103,6 +103,7 @@ export default function MemomeCanvas({
       ),
     [recordById],
   );
+  const paintOrder = useMemo(() => [...orderedPoints].reverse(), [orderedPoints]);
   const domainBounds = useMemo(
     () =>
       mapDomains.map((label) => ({
@@ -250,10 +251,18 @@ export default function MemomeCanvas({
     const filtered = searchActive || highlightIds.size < visibleIds.size;
     const paintPoints = filtered
       ? [
-          ...orderedPoints.filter((point) => !highlightIds.has(point.id)),
-          ...orderedPoints.filter((point) => highlightIds.has(point.id)),
+          ...paintOrder.filter(
+            (point) => !highlightIds.has(point.id) && point.id !== activeId,
+          ),
+          ...paintOrder.filter(
+            (point) => highlightIds.has(point.id) && point.id !== activeId,
+          ),
+          ...paintOrder.filter((point) => point.id === activeId),
         ]
-      : orderedPoints;
+      : [
+          ...paintOrder.filter((point) => point.id !== activeId),
+          ...paintOrder.filter((point) => point.id === activeId),
+        ];
     for (const p of paintPoints) {
       if (!visibleIds.has(p.id)) continue;
       const record = recordById.get(p.id),
@@ -271,7 +280,12 @@ export default function MemomeCanvas({
         documented = record?.state === "Documented",
         lead = record?.state === "Discovery lead";
       ctx.save();
-      ctx.globalAlpha = filtered && !highlighted ? 0.025 : 1;
+      ctx.globalAlpha =
+        filtered && !highlighted
+          ? 0.025
+          : documented && !selected && !matched
+            ? 0.88
+            : 1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, radius / view.scale, 0, Math.PI * 2);
       ctx.fillStyle = selected
@@ -411,6 +425,7 @@ export default function MemomeCanvas({
     recordById,
     pointById,
     orderedPoints,
+    paintOrder,
     domainBounds,
     clusterBounds,
     visibleDomainCounts,
@@ -423,6 +438,14 @@ export default function MemomeCanvas({
       sy = clientY - rect.top,
       wx = (sx - view.x) / view.scale,
       wy = (sy - view.y) / view.scale;
+    for (const p of orderedPoints) {
+      if (!visibleIds.has(p.id)) continue;
+      const record = recordById.get(p.id),
+        hitRadius =
+          Math.max(6, pointRadius(record?.reach ?? p.reach) + 2) / view.scale,
+        distance = (p.x - wx) ** 2 + (p.y - wy) ** 2;
+      if (distance <= hitRadius ** 2) return { id: p.id, sx, sy };
+    }
     let best: string | null = null,
       bestDistance = (14 / view.scale) ** 2;
     for (const p of orderedPoints) {
