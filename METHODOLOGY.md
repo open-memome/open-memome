@@ -28,7 +28,7 @@ A person, product, organization, event, place, or broad subject is normally a ca
 
 The test synthesizes several traditions:
 
-- Richard Dawkins introduced the meme as a unit of cultural transmission in *The Selfish Gene* (1976).
+- [Richard Dawkins](https://global.oup.com/academic/product/the-selfish-gene-9780198788607) introduced the meme as a unit of cultural transmission in *The Selfish Gene* (1976).
 - [O'Brien, Lyman, Mesoudi, and VanPool](https://pmc.ncbi.nlm.nih.gov/articles/PMC2981907/) examine how cultural traits can serve as identifiable units of transmission while warning that units require analytical clarity.
 - [Alex Mesoudi](https://press.uchicago.edu/ucp/books/book/chicago/C/bo8787504.html) describes cultural evolution through variation, inheritance, competition, and multiple empirical methods.
 - [Limor Shifman](https://mitpress.mit.edu/9780262317702/memes-in-digital-culture/) treats internet memes as related groups of items that are circulated, imitated, and transformed.

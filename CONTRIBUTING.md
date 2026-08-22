@@ -42,6 +42,10 @@ Maintainers check scope and source relevance. Independent reviewers check whethe
 
 Generated data must be rebuilt through the scripts that own it. Do not hand-edit generated files without updating the source and regeneration path.
 
+## Commit messages
+
+Use a short, imperative description of the project change, such as `Document the ketogenic diet record` or `Fix map zoom containment`. Describe the change, not the tool used to produce it. Do not add tool-generated attribution trailers.
+
 ## Conduct
 
 Be precise about claims and generous toward contributors. Critique evidence and scope, not people or communities. Follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).

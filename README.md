@@ -41,11 +41,11 @@ Choose one small, reviewable task:
 - [Challenge a decision](https://github.com/open-memome/open-memome/issues/new?template=dispute.yml)
 - [Fix the code or data](CONTRIBUTING.md)
 
-Every accepted change keeps its sources, discussion, reviewer rationale, and version history. Discovery leads remain outside the default map until they pass review.
+New accepted contributions keep their sources, discussion, reviewer rationale, and version history. Discovery leads remain outside the default map until they pass review.
 
 ## Current status
 
-Open Memome is an early public alpha. The semantic canvas and a small documented corpus work today. Thousands of catalogue matches remain unassessed in a separate discovery backlog. Counts describe coverage work, not verified memes.
+Open Memome is an early public alpha. The semantic canvas and a small documented corpus work today. Here, `documented` means that at least two dated sources are attached; it does not mean that community review is complete. Thousands of catalogue matches remain unassessed in a separate discovery backlog. Counts describe coverage work, not verified memes.
 
 Bubble size currently uses Wikimedia sitelinks as a reproducible long-run footprint proxy. It does not measure present-day virality. Records without a comparable reach source remain explicitly unscored.
 
