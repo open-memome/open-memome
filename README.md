@@ -16,7 +16,7 @@ A meme is a learned cultural unit that recurs in recognizable form: a belief, na
 
 Ideas spread, mutate, reinforce one another, and sometimes trap people inside intellectual basins. We have many catalogues of books, beliefs, trends, and internet memes. We do not have a shared map that connects cultural units across domains and shows the evidence for how they move.
 
-The immediate spark came from [Alexander Wissner-Gross's challenge in a Moonshots episode](https://youtu.be/TaJH0D2FKN8?t=3342): build a Human Memome Project that maps memes and mind viruses, then studies how quickly they propagate. Open Memome is an independent, open-source attempt to make that idea testable and useful.
+Open Memome began as a response to [Alexander Wissner-Gross's Human Memome Project challenge in a Moonshots episode](https://youtu.be/TaJH0D2FKN8?t=3342): map memes and mind viruses, then measure how they propagate through time. This repository is an independent, open-source first pass at that challenge. The semantic map works today; cross-perspective validation and time-series propagation remain on the roadmap.
 
 ## Inclusion criteria
 
@@ -40,6 +40,8 @@ Choose one small, reviewable task:
 - [Add evidence to a record](https://github.com/open-memome/open-memome/issues/new?template=evidence.yml)
 - [Challenge a decision](https://github.com/open-memome/open-memome/issues/new?template=dispute.yml)
 - [Fix the code or data](CONTRIBUTING.md)
+
+At this stage, feedback on the inclusion test, semantic layout, and how dated observations should measure propagation is especially useful.
 
 New accepted contributions keep their sources, discussion, reviewer rationale, and version history. Discovery leads never count as scoped records and remain visibly unassessed until they pass review.
 

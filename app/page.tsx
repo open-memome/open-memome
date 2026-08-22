@@ -385,7 +385,7 @@ export default function Home() {
                 </a>
               </div>
               <p className="origin-line">
-                Inspired by{" "}
+                Built in response to{" "}
                 <a
                   href="https://youtu.be/TaJH0D2FKN8?t=3342"
                   target="_blank"
@@ -393,7 +393,7 @@ export default function Home() {
                 >
                   Alexander Wissner-Gross&apos;s Human Memome Project challenge
                 </a>
-                . Built independently in the open.
+                . Developed independently in the open.
               </p>
             </div>
             <div className="how">
@@ -929,7 +929,7 @@ export default function Home() {
             <strong>Where the project began</strong>
             <p>
               Alexander Wissner-Gross proposed mapping the full landscape of
-              human memes and their propagation.{" "}
+              human memes and measuring their propagation through time.{" "}
               <a
                 href="https://youtu.be/TaJH0D2FKN8?t=3342"
                 target="_blank"
@@ -937,8 +937,9 @@ export default function Home() {
               >
                 Watch the Moonshots excerpt
               </a>
-              . Open Memome develops that challenge as an independent, public
-              method and dataset.
+              . Open Memome is an independent, open-source first pass at that
+              challenge. The current alpha delivers the semantic map and public
+              review ledger; dated propagation remains on the roadmap.
             </p>
           </div>
           <div className="timeline-note">
